@@ -1,0 +1,36 @@
+{
+  "name": "pxlsrt",
+  "version": "1.0.0",
+  "description": "Pixel sorts images",
+  "main": "dist/pxlsrt.js",
+  "scripts": {
+    "lint": "eslint --fix src example",
+    "build": "rimraf dist/ && babel src/ --out-dir dist/",
+    "clean": "rimraf dist/",
+    "prepublish": "npm run build",
+    "example": "npm run build && node ./example/example.js",
+    "docs": "npm run lint && jsdoc -d docs -r src/"
+  },
+  "directories": {
+    "lib": "dist/"
+  },
+  "author": "czycha",
+  "license": "MIT",
+  "dependencies": {
+    "jimp": "0.2.27",
+    "onecolor": "3.0.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.17.0",
+    "eslint-config-google": "0.9.1",
+    "eslint-plugin-import": "2.8.0",
+    "jsdoc": "3.5.5",
+    "rimraf": "^2.6.2",
+    "webpack": "4.0.1",
+    "webpack-cli": "2.0.9"
+  }
+}
