@@ -4,10 +4,7 @@
   "description": "Pixel sorts images",
   "main": "dist/pxlsrt.js",
   "browser": "dist/browser.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/czycha/pxlsrt.js.git"
-  },
+  "repository": "https://github.com/czycha/pxlsrt.js.git",
   "bugs": {
     "url": "https://github.com/czycha/pxlsrt.js/issues"
   },
