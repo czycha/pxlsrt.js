@@ -22,7 +22,7 @@ Pxlsrt.read('./test.png').then(image => {
 
 ## Browser environment
 
-There is a browser-friendly version as well. The only differences are that it loads a browser-friendly version of [Jimp](https://github.com/oliver-moran/jimp) and removes methods that can't be taken in the browser (like writing to a file).
+There is a browser-friendly version as well. The only differences are that it loads a browser-friendly version of [Jimp](https://github.com/oliver-moran/jimp) and removes methods that can't be taken in the browser (like writing to a file). Please note that even when minimized, this will be a pretty large file because of Jimp and its dependencies.
 
 ```js
 import Pxlsrt from 'pxlsrt/dist/browser';
