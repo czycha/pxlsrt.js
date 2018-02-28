@@ -4,18 +4,6 @@
  */
 class Conversions {
   /**
-   * @typedef {Object} xyCoordinate
-   * @property {int} x
-   * @property {int} y
-   */
-
-  /**
-   * @typedef {Object} diagonalCoordinate
-   * @property {int} key
-   * @property {int} index
-   */
-
-  /**
    * Converts x/y coordinates to diagonal coordinates with TLBR (top-left to bottom-right) orientation.
    * @param {int} x
    * @param {int} y

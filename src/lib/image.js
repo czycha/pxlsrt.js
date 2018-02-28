@@ -40,7 +40,7 @@ class Image {
    * @return {Image}
    */
   clone() {
-    return new Image(image.clone());
+    return new Image(this.image.clone());
   }
 
   /**
@@ -124,10 +124,6 @@ class Image {
   }
 
   /**
-   * @typedef {Array<Array<Onecolor>>} lines
-   */
-
-  /**
    * Horizontal rows.
    * @member
    * @type {lines}
@@ -168,11 +164,6 @@ class Image {
       }
     }
   }
-
-  /**
-   * @typedef {Object} diagonalPixels
-   * @property {Array<Onecolor>} * - Multidimensional array of colors
-   */
 
   /**
    * TLBR diagonals (top-left to bottom-right).

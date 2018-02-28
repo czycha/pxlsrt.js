@@ -90,13 +90,13 @@ The Smart filter uses edge detection to find regions of the image which it then 
 
 ### Creating your own filter
 
-Pxlsrt filters are based off of the `Filter` class and added via the `FilterCollection`. Below is an example of how to create your own filter and apply it.
+Pxlsrt filters are based off of the `Filter` class and added via the `FilterCollection`. The filters that are included by default are built on top of `DefaultFilter` in order to centralize some of the common processes. Below is an example of how to create your own filter and apply it.
 
 #### myfilter.js
 ```js
 import Pxlsrt from 'pxlsrt';
 
-class MyFilter extends Pxlsrt.Filter {
+class MyFilter extends Pxlsrt.Filter {  // Alternatively, extend Pxlsrt.DefaultFilter
   // Your filter must override the run function
   // It only accepts two arguments:
   //   - image: Pxlsrt.Image that is calling the filter.
@@ -115,7 +115,7 @@ module.exports = MyFilter;
 import Pxlsrt from 'pxlsrt';
 import MyFilter from './myfilter.js';
 
-Pxlsrt.FilterCollections.add('myfilter', MyFilter);
+Pxlsrt.FilterCollection.add('myfilter', MyFilter);
 Pxlsrt.read('./test.png').then(image => {
   image.filter('myfilter').write('./output.png');
 });

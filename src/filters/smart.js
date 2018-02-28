@@ -1,12 +1,12 @@
-import Filter from '../lib/filter.js';
+import DefaultFilter from '../lib/default-filter.js';
 import Conversions from '../lib/conversions.js';
 import Band from '../lib/band.js';
 
 /**
  * Smart sorting filter. Uses edge-detection to sort pixels in regions.
- * @extends Filter
+ * @extends DefaultFilter
  */
-class Smart extends Filter {
+class Smart extends DefaultFilter {
   /**
    * Run Smart filter on image.
    * @override
@@ -28,38 +28,18 @@ class Smart extends Filter {
   } = {}) {
     let lines = image.getLines(direction);
     const sobelMap = this.sobelize(image);
-    const modifyLine = (line, key) => {
-      const newLine = [];
-      const bands = this.edgeBands(
+    const modifyLine = this.genModifyLineFn(
+      {middlate, reverse, method},
+      (line, key) => this.edgeBands(
         sobelMap,
         direction,
         threshold,
         image.width,
-        +key,
+        key,
         line
-      );
-      bands.forEach((band) => {
-        band.sortByMethod(method);
-        if (
-          reverse === true ||
-          (reverse === 'either' && Math.round(Math.random()) === 1)
-        ) {
-          band.reverse();
-        }
-        band.middlateLoop(middlate);
-        newLine.push(...band.pixels);
-      });
-      return newLine;
-    };
-    if (direction === 'vertical' || direction === 'horizontal') {
-      lines = lines.map(modifyLine);
-    } else {
-      Object.entries(lines).forEach(([key, line]) => {
-        lines[key] = modifyLine(line, key);
-      });
-    }
-    image.setLines(direction, lines);
-    return image;
+      )
+    );
+    return this.setLines(image, lines, direction, modifyLine);
   }
 
   /**

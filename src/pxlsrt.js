@@ -2,6 +2,7 @@ import Image from './lib/image.js';
 import Band from './lib/band.js';
 import Conversions from './lib/conversions.js';
 import Filter from './lib/filter.js';
+import DefaultFilter from './lib/default-filter.js';
 import FilterCollection from './lib/filter-collection.js';
 
 /**
@@ -17,6 +18,7 @@ const Pxlsrt = {
   Band,
   Conversions,
   Filter,
+  DefaultFilter,
   FilterCollection,
 
   /**

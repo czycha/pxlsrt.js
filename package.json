@@ -14,7 +14,7 @@
     "clean": "rimraf dist/",
     "prepublishOnly": "npm run build",
     "example": "npm run build && node ./example/example.js",
-    "docs": "npm run lint && jsdoc -d docs -r src/"
+    "docs": "npm run lint && jsdoc -d docs -r src/ -R README.md --verbose"
   },
   "directories": {
     "lib": "dist/"

@@ -1,11 +1,11 @@
-import Filter from '../lib/filter.js';
+import DefaultFilter from '../lib/default-filter.js';
 import Band from '../lib/band.js';
 
 /**
  * Brute force sorting filter. Breaks up image into randomly sized bands to sort by.
- * @extends Filter
+ * @extends DefaultFilter
  */
-class Brute extends Filter {
+class Brute extends DefaultFilter {
   /**
    * Run filter on image.
    * @override
@@ -27,32 +27,12 @@ class Brute extends Filter {
     reverse = false,
     direction = 'horizontal',
   } = {}) {
-    let lines = image.getLines(direction);
-    const modifyLine = (line) => {
-      const newLine = [];
-      const bands = this.randomBands(line, min, max);
-      bands.forEach((band) => {
-        band.sortByMethod(method);
-        if (
-          reverse === true ||
-          (reverse === 'either' && Math.round(Math.random()) === 1)
-        ) {
-          band.reverse();
-        }
-        band.middlateLoop(middlate);
-        newLine.push(...band.pixels);
-      });
-      return newLine;
-    };
-    if (direction === 'vertical' || direction === 'horizontal') {
-      lines = lines.map(modifyLine);
-    } else {
-      Object.entries(lines).forEach(([key, line]) => {
-        lines[key] = modifyLine(line);
-      });
-    }
-    image.setLines(direction, lines);
-    return image;
+    const lines = image.getLines(direction);
+    const modifyLine = this.genModifyLineFn(
+      {middlate, reverse, method},
+      (line, key) => this.randomBands(line, min, max)
+    );
+    return this.setLines(image, lines, direction, modifyLine);
   }
 
   /**
