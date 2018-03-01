@@ -49,7 +49,7 @@ class Smart extends DefaultFilter {
    * @param {number} threshold - Used to combine like-pixels into bands. 0 means no combination. Higher numbers collect more pixels.
    * @param {int} columns - Width of the image. Used for conversions.
    * @param {int} key - Key for the current line operating on.
-   * @param {Array<Onecolor>} line - Set of pixels to turn into bands.
+   * @param {line} line - Set of pixels to turn into bands.
    * @return {Array<Band>} Bands
    */
   static edgeBands(sobelMap, direction, threshold, columns, key, line) {

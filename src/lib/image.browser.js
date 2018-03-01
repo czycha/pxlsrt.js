@@ -99,7 +99,7 @@ class ImageBrowser {
    * @param {int} y
    * @param {int} width
    * @param {height} height
-   * @return {Array<Onecolor>}
+   * @return {line}
    */
   scanPixels(x, y, width, height) {
     const colors = [];

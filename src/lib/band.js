@@ -7,13 +7,13 @@ class Band {
   /**
    * Creates a Band.
    * @constructor
-   * @param {Array<Onecolor>} pixels
+   * @param {line} pixels
    */
   constructor(pixels) {
     /**
      * Band pixels
      * @member
-     * @type {Array<Onecolor>}
+     * @type {line}
      */
     this.pixels = [...pixels];
 
