@@ -27,7 +27,7 @@ describe('FilterCollection', function() {
     it('should override filters', function() {
       FilterCollection.add('brute', Filter);
       expect(FilterCollection.filters).to.include.all.keys('brute');
-      expect(FilterCollection.filters.brute).to.equal(Filter).and.not.equal(Brute);
+      expect(FilterCollection.filters.brute).to.equal(Filter);
     });
   });
 });
