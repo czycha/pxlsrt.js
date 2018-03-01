@@ -9,12 +9,13 @@
     "url": "https://github.com/czycha/pxlsrt.js/issues"
   },
   "scripts": {
-    "lint": "eslint --fix src example",
+    "lint": "eslint --fix src example test",
     "build": "rimraf dist/ && babel src/ --out-dir dist/",
     "clean": "rimraf dist/",
     "prepublishOnly": "npm run build",
     "example": "npm run build && node ./example/example.js",
-    "docs": "npm run lint && jsdoc -d docs -r src/ -R README.md --verbose"
+    "docs": "npm run lint && jsdoc -d docs -r src/ -R README.md --verbose",
+    "test": "npm run build && mocha"
   },
   "directories": {
     "lib": "dist/"
@@ -30,10 +31,12 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-preset-env": "^1.6.1",
+    "chai": "4.1.2",
     "eslint": "^4.17.0",
     "eslint-config-google": "0.9.1",
     "eslint-plugin-import": "2.8.0",
     "jsdoc": "3.5.5",
+    "mocha": "5.0.1",
     "rimraf": "^2.6.2"
   }
 }
