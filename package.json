@@ -1,6 +1,6 @@
 {
   "name": "pxlsrt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pixel sorts images",
   "main": "dist/pxlsrt.js",
   "browser": "dist/browser.js",
