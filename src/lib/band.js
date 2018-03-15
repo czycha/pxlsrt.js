@@ -24,7 +24,7 @@ class Band {
      * @member
      * @type {Array<string>}
      */
-    this.sortable = [
+    this.sortable = Object.freeze([
       'alpha',
       'black',
       'blue',
@@ -45,7 +45,7 @@ class Band {
       'uniqueness',
       'value',
       'yellow',
-    ];
+    ]);
 
     /**
      * Whether or not to apply smoothing to band, grouping like pixels together when sorting.
