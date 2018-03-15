@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lint": "eslint --fix src example test",
-    "build": "rimraf dist/ && babel src/ --out-dir dist/",
+    "build": "rimraf dist/ && babel src/ --out-dir dist/ --no-comments",
     "clean": "rimraf dist/",
     "prepublishOnly": "npm run build",
     "example": "npm run build && node ./example/example.js",
