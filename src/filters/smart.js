@@ -12,11 +12,12 @@ class Smart extends DefaultFilter {
    * @override
    * @param {Image} image
    * @param {Object} options
-   * @param {number} options.threshold - Used to combine like-pixels into bands. 0 means no combination. Higher numbers collect more pixels.
-   * @param {string} options.method - Sorting method.
-   * @param {int} options.middlate - Middlation effect counter. 0 means no run. > 0 means loop that many times. < 0 means run middlateReverse than many times.
-   * @param {(truthy|'either')} options.reverse - Reverse string or not. Providing 'either' will randomly reverse lines.
-   * @param {string} options.direction - Direction to sort in. Options are: horizontal, vertical, tlbr (top-left to bottom-right diagonal), or trbl (top-right to bottom-left diagonal).
+   * @param {number} [options.threshold=20] - Used to combine like-pixels into bands. 0 means no combination. Higher numbers collect more pixels.
+   * @param {string} [options.method="sumRGBA"] - Sorting method.
+   * @param {int} [options.middlate=0] - Middlation effect counter. 0 means no run. > 0 means loop that many times. < 0 means run middlateReverse than many times.
+   * @param {(truthy|'either')} [options.reverse=false] - Reverse string or not. Providing 'either' will randomly reverse lines.
+   * @param {string} [options.direction="horizontal"] - Direction to sort in. Options are: horizontal, vertical, tlbr (top-left to bottom-right diagonal), or trbl (top-right to bottom-left diagonal).
+   * @param {boolean} [options.smooth=false] - Whether or not to apply smoothing to band, grouping like pixels together when sorting.
    * @return {Image} image
    */
   static run(image, {
@@ -25,6 +26,7 @@ class Smart extends DefaultFilter {
     middlate = 0,
     reverse = false,
     direction = 'horizontal',
+    smooth = false,
   } = {}) {
     let lines = image.getLines(direction);
     const sobelMap = this.sobelize(image);
@@ -36,7 +38,8 @@ class Smart extends DefaultFilter {
         threshold,
         image.width,
         key,
-        line
+        line,
+        smooth
       )
     );
     return this.setLines(image, lines, direction, modifyLine);
@@ -50,9 +53,10 @@ class Smart extends DefaultFilter {
    * @param {int} columns - Width of the image. Used for conversions.
    * @param {int} key - Key for the current line operating on.
    * @param {line} line - Set of pixels to turn into bands.
+   * @param {boolean} smooth
    * @return {Array<Band>} Bands
    */
-  static edgeBands(sobelMap, direction, threshold, columns, key, line) {
+  static edgeBands(sobelMap, direction, threshold, columns, key, line, smooth) {
     const getSobel = (() => {
       switch (direction) {
         case 'horizontal':
@@ -73,7 +77,7 @@ class Smart extends DefaultFilter {
     })();
     let prevSobel = 0;
     const bands = [];
-    let currBand = new Band([]);
+    let currBand = new Band([], smooth);
     for (let i = 0; i < line.length; i++) {
       const currSobel = getSobel(key, i);
       if (Math.abs(currSobel - prevSobel) <= threshold) {

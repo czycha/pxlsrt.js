@@ -1,4 +1,5 @@
 import onecolor from 'onecolor/one-color-all';
+import FastMap from 'collections/fast-map';
 
 /**
  * Band of pixels that will be sorted
@@ -8,8 +9,9 @@ class Band {
    * Creates a Band.
    * @constructor
    * @param {line} pixels
+   * @param {boolean} [smooth=false] - Whether or not to apply smoothing to band, grouping like pixels together when sorting.
    */
-  constructor(pixels) {
+  constructor(pixels, smooth = false) {
     /**
      * Band pixels
      * @member
@@ -44,6 +46,12 @@ class Band {
       'value',
       'yellow',
     ];
+
+    /**
+     * Whether or not to apply smoothing to band, grouping like pixels together when sorting.
+     * @type {boolean}
+     */
+    this.smooth = smooth;
   }
 
   /**
@@ -114,6 +122,26 @@ class Band {
   }
 
   /**
+   * Get map of pixel counts.
+   * @type {FastMap}
+   */
+  get counts() {
+    return (
+      this.pixels.reduce(
+        (acc, curr) => {
+          acc.set(curr, acc.get(curr) + 1);
+          return acc;
+        },
+        new FastMap(
+          [],
+          ((a, b) => a.hexa() === b.hexa()),
+          ((a) => a.hexa()), (() => 0)
+        )
+      )
+    );
+  }
+
+  /**
    * @callback sortCallback
    * @param {Onecolor} a
    * @param {Onecolor} b
@@ -126,8 +154,26 @@ class Band {
    * @return {Band} this
    */
   sort(method) {
-    this.pixels = this.pixels.sort(method);
+    this.pixels = this.smooth ?
+      this.sortSmooth(method) : this.pixels.sort(method);
     return this;
+  }
+
+  /**
+   * Group same pixels together, and sort entire swaths.
+   * @param {sortCallback} method
+   * @return {line} sorted
+   */
+  sortSmooth(method) {
+    const counts = this.counts;
+    const sorted = [...counts.keys()].sort(method).reduce((acc, curr) => {
+      const count = counts.get(curr);
+      for (let i = 0; i < count; i++) {
+        acc.push(curr);
+      }
+      return acc;
+    }, []);
+    return sorted;
   }
 
   /**

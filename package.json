@@ -1,6 +1,6 @@
 {
   "name": "pxlsrt",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Pixel sorts images",
   "main": "dist/pxlsrt.js",
   "browser": "dist/browser.js",
@@ -23,6 +23,7 @@
   "author": "czycha",
   "license": "MIT",
   "dependencies": {
+    "collections": "5.1.2",
     "jimp": "0.2.27",
     "onecolor": "3.0.5"
   },

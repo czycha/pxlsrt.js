@@ -272,7 +272,7 @@ class Image {
   /**
    * Run a filter on current image.
    * @param {string} key
-   * @param {Object} options
+   * @param {Object} [options={}]
    * @return {Image} this
    */
   filter(key, options = {}) {

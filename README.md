@@ -70,6 +70,7 @@ Filters are not required to have these options, but the default filters have the
   - **0** – Apply no middlation . **Default.**
   - **> 0** – Middlate that many times.
   - **< 0** – Middlate in reverse that many times.
+- **smooth** – When sorting, keeps colors that are the same together. **Default: false.**
 
 ### Brute filter
 
