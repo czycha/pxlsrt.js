@@ -6,25 +6,12 @@ import FastMap from 'collections/fast-map';
  */
 class Band {
   /**
-   * Creates a Band.
-   * @constructor
-   * @param {line} pixels
-   * @param {boolean} [smooth=false] - Whether or not to apply smoothing to band, grouping like pixels together when sorting.
-   */
-  constructor(pixels, smooth = false) {
-    /**
-     * Band pixels
-     * @member
-     * @type {line}
-     */
-    this.pixels = [...pixels];
-
-    /**
-     * Sortable properties
-     * @member
-     * @type {Array<string>}
-     */
-    this.sortable = Object.freeze([
+   * Sortable properties
+   * @member
+   * @type {Array<string>}
+  */
+  static get sortable() {
+    return Object.freeze([
       'alpha',
       'black',
       'blue',
@@ -46,6 +33,21 @@ class Band {
       'value',
       'yellow',
     ]);
+  }
+
+  /**
+   * Creates a Band.
+   * @constructor
+   * @param {line} pixels
+   * @param {boolean} [smooth=false] - Whether or not to apply smoothing to band, grouping like pixels together when sorting.
+   */
+  constructor(pixels, smooth = false) {
+    /**
+     * Band pixels
+     * @member
+     * @type {line}
+     */
+    this.pixels = [...pixels];
 
     /**
      * Whether or not to apply smoothing to band, grouping like pixels together when sorting.
@@ -207,7 +209,7 @@ class Band {
    * @return {Band} this
    */
   sortByMethod(methodName) {
-    if (this.sortable.includes(methodName)) {
+    if (Band.sortable.includes(methodName)) {
       return this[methodName]();
     }
     throw new Error(`Invalid sort method: ${methodName}`);
