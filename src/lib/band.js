@@ -168,7 +168,7 @@ class Band {
    */
   sortSmooth(method) {
     const counts = this.counts;
-    const sorted = [...counts.keys()].sort(method).reduce((acc, curr) => {
+    const sorted = counts.keysArray().sort(method).reduce((acc, curr) => {
       const count = counts.get(curr);
       for (let i = 0; i < count; i++) {
         acc.push(curr);
