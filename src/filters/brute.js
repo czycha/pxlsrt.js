@@ -31,8 +31,8 @@ class Brute extends DefaultFilter {
   } = {}) {
     const lines = image.getLines(direction);
     const modifyLine = this.genModifyLineFn(
-      {middlate, reverse, method},
-      (line, key) => this.randomBands(line, min, max, smooth)
+      {middlate, reverse, method, smooth},
+      (line, key) => this.randomBands(line, min, max)
     );
     return this.setLines(image, lines, direction, modifyLine);
   }
@@ -42,10 +42,9 @@ class Brute extends DefaultFilter {
    * @param {Array} arr
    * @param {int} min
    * @param {int} max
-   * @param {boolean} smooth
    * @return {Array<Band>}
    */
-  static randomBands(arr, min, max, smooth) {
+  static randomBands(arr, min, max) {
     if (arr.length === 0) {
       return [[]];
     }
@@ -65,7 +64,7 @@ class Brute extends DefaultFilter {
     if (currUpper < arr.length) {
       slices.push(arr.slice(currUpper));
     }
-    return slices.map((slice) => new Band(slice, smooth));
+    return slices.map((slice) => new Band(slice));
   }
 }
 

@@ -15,11 +15,12 @@ class DefaultFilter extends Filter {
    * @param {bandFn} bandFn
    * @return {modifyLine}
    */
-  static genModifyLineFn({middlate, reverse, method}, bandFn) {
+  static genModifyLineFn({middlate, reverse, method, smooth}, bandFn) {
     return (line, key) => {
       const newLine = [];
       const bands = bandFn(line, +key);
       bands.forEach((band) => {
+        band.smooth = smooth;
         band.sortByMethod(method);
         if (
           reverse === true ||

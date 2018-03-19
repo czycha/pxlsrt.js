@@ -31,15 +31,14 @@ class Smart extends DefaultFilter {
     let lines = image.getLines(direction);
     const sobelMap = this.sobelize(image);
     const modifyLine = this.genModifyLineFn(
-      {middlate, reverse, method},
+      {middlate, reverse, method, smooth},
       (line, key) => this.edgeBands(
         sobelMap,
         direction,
         threshold,
         image.width,
         key,
-        line,
-        smooth
+        line
       )
     );
     return this.setLines(image, lines, direction, modifyLine);
@@ -53,10 +52,9 @@ class Smart extends DefaultFilter {
    * @param {int} columns - Width of the image. Used for conversions.
    * @param {int} key - Key for the current line operating on.
    * @param {line} line - Set of pixels to turn into bands.
-   * @param {boolean} smooth
    * @return {Array<Band>} Bands
    */
-  static edgeBands(sobelMap, direction, threshold, columns, key, line, smooth) {
+  static edgeBands(sobelMap, direction, threshold, columns, key, line) {
     const getSobel = (() => {
       switch (direction) {
         case 'horizontal':
@@ -77,7 +75,7 @@ class Smart extends DefaultFilter {
     })();
     let prevSobel = 0;
     const bands = [];
-    let currBand = new Band([], smooth);
+    let currBand = new Band([]);
     for (let i = 0; i < line.length; i++) {
       const currSobel = getSobel(key, i);
       if (Math.abs(currSobel - prevSobel) <= threshold) {
