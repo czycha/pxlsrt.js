@@ -1,6 +1,5 @@
 const Band = require('../dist/lib/band.js');
 const onecolor = require('onecolor/one-color-all');
-const FastMap = require('collections/fast-map');
 const assert = require('assert');
 
 describe('Band', function() {
@@ -168,18 +167,6 @@ describe('Band', function() {
     it('should sort by pixel uniqueness within band', function() {
       band.uniqueness();
       assert(compareOrder(band, 4, 0, 5, 1, 2, 3));
-    });
-  });
-  describe('#counts', function() {
-    it('should determine pixel counts', function() {
-      let counts = new FastMap([
-        [pixels[0], 2],
-        [pixels[1], 1],
-        [pixels[2], 1],
-        [pixels[3], 1],
-        [pixels[4], 1],
-      ], (a, b) => a.hexa() === b.hexa(), (a) => a.hexa(), () => 0);
-      assert(counts.equals(smoothBand.counts));
     });
   });
   describe('#sortSmooth()', function() {

@@ -23,7 +23,6 @@
   "author": "czycha",
   "license": "MIT",
   "dependencies": {
-    "collections": "5.1.2",
     "jimp": "0.2.27",
     "onecolor": "3.0.5"
   },

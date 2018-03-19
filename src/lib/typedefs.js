@@ -37,3 +37,23 @@
  * @property {int} key
  * @property {int} index
  */
+
+/**
+ * Hash function. Transform some object to a comparable string.
+ * @callback hashFn
+ * @param {*} val
+ * @return {String} hash
+ */
+
+/**
+ * @typedef {Object} countObject
+ * @property {int} count
+ * @property {string} hash
+ * @property {Object} key
+ */
+
+/**
+ * @typedef {Array} countEntry
+ * @property {Object} 0 - Key
+ * @property {int} 1 - Count
+ */

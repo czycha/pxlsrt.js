@@ -54,8 +54,8 @@ Pxlsrt.read(paths.kat).then(function(image) {
   console.log('Loaded ' + paths.kat);
   let output = paths.output(4);
   image.filter('brute', {
-    method: 'cyan',  // Sort by cyan value
-    smooth: true  // Group same pixels together when sorting
+    method: 'cyan', // Sort by cyan value
+    smooth: true, // Group same pixels together when sorting
   }).write(output);
   console.log('Saved to ' + output);
 });

@@ -1,5 +1,5 @@
 import onecolor from 'onecolor/one-color-all';
-import FastMap from 'collections/fast-map';
+import CountMap from './count-map';
 
 /**
  * Band of pixels that will be sorted
@@ -125,19 +125,18 @@ class Band {
 
   /**
    * Get map of pixel counts.
-   * @type {FastMap}
+   * @type {CountMap<Onecolor>}
    */
   get counts() {
     return (
       this.pixels.reduce(
         (acc, curr) => {
-          acc.set(curr, acc.get(curr) + 1);
+          acc.add(curr);
           return acc;
         },
-        new FastMap(
+        new CountMap(
           [],
-          ((a, b) => a.hexa() === b.hexa()),
-          ((a) => a.hexa()), (() => 0)
+          ((a) => a.hexa())
         )
       )
     );
@@ -168,7 +167,7 @@ class Band {
    */
   sortSmooth(method) {
     const counts = this.counts;
-    const sorted = counts.keysArray().sort(method).reduce((acc, curr) => {
+    const sorted = counts.keys().sort(method).reduce((acc, curr) => {
       const count = counts.get(curr);
       for (let i = 0; i < count; i++) {
         acc.push(curr);
