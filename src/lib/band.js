@@ -1,5 +1,5 @@
 import onecolor from 'onecolor/one-color-all';
-import CountMap from './count-map';
+import CountMap from 'count-map';
 
 /**
  * Band of pixels that will be sorted
@@ -134,10 +134,9 @@ class Band {
           acc.add(curr);
           return acc;
         },
-        new CountMap(
-          [],
-          ((a) => a.hexa())
-        )
+        new CountMap({
+          hash: (key) => key.hexa()
+        })
       )
     );
   }
