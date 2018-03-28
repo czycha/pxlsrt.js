@@ -128,17 +128,10 @@ class Band {
    * @type {CountMap<Onecolor>}
    */
   get counts() {
-    return (
-      this.pixels.reduce(
-        (acc, curr) => {
-          acc.add(curr);
-          return acc;
-        },
-        new CountMap({
-          hash: (key) => key.hexa()
-        })
-      )
-    );
+    return new CountMap({
+      array: this.pixels,
+      hash: (key) => key.hexa(),
+    });
   }
 
   /**
