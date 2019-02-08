@@ -24,14 +24,14 @@
   "license": "MIT",
   "dependencies": {
     "count-map": "1.0.0",
-    "jimp": "0.2.27",
+    "jimp": "0.6.x",
     "onecolor": "3.0.5"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
+    "@babel/cli": "7.2.3",
+    "@babel/core": "7.2.2",
+    "@babel/preset-env": "7.3.1",
     "babel-eslint": "^8.2.1",
-    "babel-preset-env": "^1.6.1",
     "chai": "4.1.2",
     "eslint": "^4.17.0",
     "eslint-config-google": "0.9.1",
