@@ -10,12 +10,17 @@
   },
   "scripts": {
     "lint": "eslint --fix src example test",
-    "build": "rimraf dist/ && babel src/ --out-dir dist/ --no-comments",
-    "clean": "rimraf dist/",
-    "prepublishOnly": "npm run build",
-    "example": "npm run build && node ./example/example.js",
+    "build": "babel src/ --out-dir dist/ --no-comments",
+    "build:fresh": "run-s clean build",
+    "clean": "rimraf dist",
+    "clean:docs": "rimraf docs",
+    "prepublishOnly": "nyr build",
+    "example": "node ./example/example.js",
+    "example:fresh": "run-s build:fresh example",
     "docs": "rimraf docs/ && npm run lint && jsdoc -d docs -r src/ -R README.md --verbose",
-    "test": "npm run build && mocha"
+    "docs:fresh": "run-s clean:docs lint docs",
+    "test": "mocha",
+    "test:fresh": "run-s build test"
   },
   "directories": {
     "lib": "dist/"
@@ -33,11 +38,13 @@
     "@babel/preset-env": "7.3.1",
     "babel-eslint": "^8.2.1",
     "chai": "4.1.2",
-    "eslint": "^4.17.0",
+    "eslint": "^5.16.0",
     "eslint-config-google": "0.9.1",
-    "eslint-plugin-import": "2.8.0",
-    "jsdoc": "3.5.5",
+    "eslint-plugin-import": "^2.17.3",
+    "jsdoc": "^3.6.2",
     "mocha": "5.0.1",
+    "npm-run-all": "4.1.5",
+    "nyr": "1.1.0",
     "rimraf": "^2.6.2"
   }
 }
